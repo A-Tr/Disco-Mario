@@ -14,7 +14,7 @@ function Player(game) {
   this.img.src = "img/player.png";
   this.img.frames = 3;
   this.img.frameIndex = 1;
-
+  this.bullets = [];
   this.setListeners();
 }
 
@@ -30,6 +30,15 @@ Player.prototype.draw = function() {
     this.width,
     this.height
   );
+
+  this.bullets.forEach(function(b) {
+    b.draw();
+  });
+
+  this.bullets = this.bullets.filter(function(b) {
+    return b.x < this.game.canvas.width;
+  }.bind(this));
+
   if (this.game.framesCounter % 10 == 0) {
     this.img.frameIndex += 1;
   }
@@ -44,11 +53,15 @@ Player.prototype.setListeners = function() {
     if (e.keyCode == 38 && this.vy === 0) {
       this.vy -= 10;
       this.y -= 20;
+    } else if (e.keyCode === 32) {
+      this.shoot();
     }
   }.bind(this);
 };
 
-Player.prototype.shoot = function() {};
+Player.prototype.shoot = function() {
+  this.bullets.push(new Bullet(this.game));
+};
 
 Player.prototype.animateImg = function() {};
 
@@ -60,4 +73,7 @@ Player.prototype.move = function() {
     this.vy = 0;
     this.y = this.y0;
   }
+  this.bullets.forEach(function(b) {
+    b.move();
+  });
 };

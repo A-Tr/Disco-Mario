@@ -2,17 +2,11 @@ function Game(canvasId) {
   this.canvas = document.getElementById(canvasId);
   this.ctx = this.canvas.getContext("2d");
 
-  this.background = new Background(this);
-  this.player = new Player(this)
-
-  this.framesCounter = 0,
   this.reset();
-
-  this.obstacles = []
 }
 
 Game.prototype.start = function() { 
-  setInterval( function () {
+  this.interval = setInterval( function () {
     this.clear();
     this.moveAll();
     this.draw();
@@ -26,10 +20,15 @@ Game.prototype.start = function() {
     if(this.isCollision()){
       this.gameOver();
     }
+    if (this.framesCounter % 100 === 0){
+      this.score.incrementScore();
+    }
+    console.log(this.score.point)
   }.bind(this), 1000/60);
 };
 
 Game.prototype.stop = function() {
+  clearInterval(this.interval)
 };
 
 Game.prototype.gameOver = function() {
@@ -41,10 +40,23 @@ Game.prototype.gameOver = function() {
 };
 
 Game.prototype.reset = function() {
+  this.background = new Background(this);
+  this.player = new Player(this);
+  this.score = new Score(this)
+
+  this.framesCounter = 0,
+
+  this.obstacles = []
+
 };
 
 Game.prototype.isCollision = function() {
-  return true;
+  return this.obstacles.some(function (o) {
+    return (this.player.x + this.player.width > o.x) &&
+      (o.x + o.width > this.player.x) && 
+      (this.player.y + this.player.height > o.y)
+  }.bind(this))
+
 };
 
 Game.prototype.clearObstacles = function() {

@@ -14,4 +14,5 @@ Obstacle.prototype.draw = function() {
 
 Obstacle.prototype.move = function() {
   this.x -= this.game.background.dx;
+  
 };
