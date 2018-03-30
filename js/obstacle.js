@@ -6,9 +6,13 @@ function Obstacle(game) {
   this.x = this.game.canvas.width;
   this.y = this.game.player.y0 + this.game.player.height - this.height;
 
+
+
 }
 
 Obstacle.prototype.draw = function() {
+  this.game.ctx.fillStyle = "rgb(" + Math.floor(Math.random()  * 255) + ", " + Math.floor(Math.random() * 255) + ", " + Math.floor(Math.random() * 255) + ")";
+//  this.game.ctx.fillStyle = "red";
   this.game.ctx.fillRect(this.x, this.y, this.width, this.height);
 };
 

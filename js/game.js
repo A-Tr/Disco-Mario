@@ -73,16 +73,12 @@ Game.prototype.clear = function() {
 Game.prototype.draw = function() {
   this.background.draw();
   this.player.draw();
-  this.obstacles.forEach(function(o){
-    o.draw();
-  })
+  this.obstacles.forEach(function(o){ o.draw(); })
   this.score.draw();
 };
 
 Game.prototype.moveAll = function() {
   this.background.move()
   this.player.move()
-  this.obstacles.forEach(function(o){
-    o.move();
-  })
+  this.obstacles.forEach(function(o){ o.move(); })
 };
