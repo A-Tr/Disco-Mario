@@ -5,7 +5,7 @@ function Background(game) {
   this.y = 0;
   this.game = game;
 
-  this.dx = 4;
+  this.dx = 10;
 
   this.img = new Image();
   this.img.src = "img/bg.png";
