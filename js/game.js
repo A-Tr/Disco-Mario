@@ -76,6 +76,7 @@ Game.prototype.draw = function() {
   this.obstacles.forEach(function(o){
     o.draw();
   })
+  this.score.draw();
 };
 
 Game.prototype.moveAll = function() {
